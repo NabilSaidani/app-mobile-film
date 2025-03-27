@@ -29,9 +29,9 @@ const Index = () => {
   } = useFetch(getTrendingMovies);
 
   const {
-    data: movies,
-    loading: moviesLoading,
-    error: moviesError,
+    data: films,
+    loading: filmsLoading,
+    error: filmsError,
   } = useFetch(() => fetchMovies({ query: "" }));
 
   return (
@@ -49,27 +49,27 @@ const Index = () => {
       >
         <Image source={icons.logo} className="w-12 h-10 mt-20 mb-5 mx-auto" />
 
-        {moviesLoading || trendingLoading ? (
+        {filmsLoading || trendingLoading ? (
           <ActivityIndicator
             size="large"
             color="#0000ff"
             className="mt-10 self-center"
           />
-        ) : moviesError || trendingError ? (
-          <Text>Error: {moviesError?.message || trendingError?.message}</Text>
+        ) : filmsError || trendingError ? (
+          <Text>Error: {filmsError?.message || trendingError?.message}</Text>
         ) : (
           <View className="flex-1 mt-5">
             <SearchBar
               onPress={() => {
                 router.push("/recherche");
               }}
-              placeholder="Search for a movie"
+              placeholder="Recherche un film"
             />
 
             {trendingMovies && (
               <View className="mt-10">
                 <Text className="text-lg text-white font-bold mb-3">
-                  Trending Movies
+                  Listes des films
                 </Text>
                 <FlatList
                   horizontal
@@ -90,11 +90,11 @@ const Index = () => {
 
             <>
               <Text className="text-lg text-white font-bold mt-5 mb-3">
-                Latest Movies
+                les derniers films
               </Text>
 
               <FlatList
-                data={movies}
+                data={films}
                 renderItem={({ item }) => <MovieCard {...item} />}
                 keyExtractor={(item) => item.id.toString()}
                 numColumns={3}
